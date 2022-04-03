@@ -2,14 +2,11 @@ const board = document.querySelector( '.board' )
 const articles = document.querySelectorAll( '.article' )
 const sections = document.querySelectorAll( '.section' )
 const modal = document.querySelector( ".modal" );
-const searchBar = document.getElementById( "searchbar" );
-const searchbarBtn = document.querySelector( ".searchbarBtn" );
-
+const searchBar = document.getElementById( "searchBar" );
+const searchBarBtn = document.querySelector( ".searchBarBtn" );
 
 let src, parentSrc, target, targetParent;
-
 let listArray = localStorage.getItem( 'listArray' ) ? JSON.parse( localStorage.getItem( 'listArray' ) ) : [];
-
 
 window.onload = async () => {
     await init()
@@ -17,7 +14,6 @@ window.onload = async () => {
     board.appendChild( Populate100() );
     searching( searchBar )
 };
-
 
 async function init() {
     if ( listArray && listArray.length > 0 ) {
@@ -32,35 +28,28 @@ async function init() {
 
     modal.style.display = 'block'
 
-
     if ( listArray.length >= 4 ) {
         if ( searchBar ) {
             searchBar.style.display = 'block'
         }
     }
 
-    searchbarBtn.addEventListener( 'click', ( e ) => {
+    searchBarBtn.addEventListener( 'click', ( e ) => {
         searchBar.value = ''
         e.target.style.display = 'none'
     } )
 }
 
 // Prepare Dom element   #############################
-
 function prepareSection( item ) {
     const section = sectionEl()
-
     const header = headerEl();
     section.prepend( header );
-
     const input = inputEl();
 
     if ( item ) {
         section.dataset.id = item.id
         input.value = item.title
-        // input.setAttribute( 'value', input.value );
-
-
     }
 
     header.prepend( input );
@@ -83,7 +72,6 @@ function prepareSection( item ) {
         button.disabled = true
     }
 
-
     section.appendChild( footer );
 
     const btn = document.querySelector( '.board > .addSection' )
@@ -96,7 +84,6 @@ function prepareSection( item ) {
 
     if ( item && item.list.length ) {
         for ( const article in item.list ) {
-            // console.log( 'article: ', item.list[ article ] )
             prepareArticle( item.id, item.list[ article ].id )
         }
     }
@@ -111,20 +98,12 @@ function prepareSection( item ) {
 }
 
 function prepareArticle( sectionId, articleId ) {
-    // console.log( ' === prepareArticle: ' )
-    // console.log( ' sectionId: ', sectionId, '\n' )
-    // console.log( ' articleId: ', articleId, '\n' )
-
     const item = getStoreItem( sectionId )
-    // console.log( ' item: ', item, '\n' )
     const subItem = item.data.list.find( ( ar ) => ar.id == articleId )
-
-    // console.log( ' subItem: ', subItem, '\n' )
-
     const section = document.querySelector( '[data-id="' + sectionId + '"]' );
     const article = articleEl()
-
     const header = headerEl();
+
     article.classList.add( 'title--article' )
 
     const input = inputEl();
@@ -204,26 +183,14 @@ const sectionTitle = ( e ) => {
     }
 }
 const articleTitle = ( e ) => {
-
-    // console.log( ' === val:', e )
-
     const section = e.target.closest( 'section' )
     const sectionId = section.dataset.id
     const articleId = e.target.parentNode.parentNode.dataset.id
     const val = e.target.value.trimStart()
 
-
-
-    console.log( 'sectionId: ', sectionId )
     if ( val ) {
-
         e.target.setAttribute( "value", val );
-
-        console.log( ' articleTitle val:', e.target )
-
         if ( getStoreItem( sectionId ) ) {
-            console.log( ' === val:', val )
-
             let item = getStoreItem( sectionId ).data
             const article = item.list.find( ( ar ) => ar.id == articleId );
             if ( !article ) {
@@ -237,7 +204,6 @@ const articleTitle = ( e ) => {
                 updateStoreItem( item )
             }
         }
-
         addDnDHandlers( e.target )
     }
 
@@ -357,7 +323,6 @@ function handleDrop( e ) {
     e.stopPropagation()
 
     if ( targetParent.classList.contains( 'board' ) ) {
-        console.log( '4::::: the section has been moved' )
         srcIdx = [ ...src.parentNode.children ].indexOf( src );
         targetIdx = [ ...target.parentNode.children ].indexOf( target );
         const fromIndex = srcIdx
@@ -378,17 +343,9 @@ function handleDrop( e ) {
         const data = listArray[ prevSection.idx ].list[ prevIdx ]
         data.section = targetParent.dataset.id
 
-
         if ( target == targetParent ) {
-
-            console.log( '1::::: article moved in section' )
             const header = targetParent.querySelector( 'header' )
-            // header.insertAdjacentHTML( 'afterend', e.dataTransfer.getData( 'text/html' ) );
-            // header.nextSibling.nextSibling.classList.remove( 'active' )
-            // src.remove()
             header.after( src );
-
-
             listArray[ nextSection.idx ].list.push( data )
             listArray[ prevSection.idx ].list.splice( prevIdx, 1 );
             initStore( listArray )
@@ -396,37 +353,21 @@ function handleDrop( e ) {
 
         if ( src.classList.contains( 'article' ) && target.classList.contains( 'article' ) ) {
 
-
             if ( parentSrc != targetParent ) {
-                console.log( '=== 2 ::::: article moved before another article' )
-                // target.insertAdjacentHTML( 'beforebegin', e.dataTransfer.getData( 'text/html' ) );
-                // target.previousSibling.classList.remove( 'active' )
-                // src.remove()
                 target.before( src );
-                // console.log( 'src: ', src )
                 const nextId = listArray[ nextSection.idx ].list.findIndex( ( e ) => e.id == target.dataset.id );
                 listArray[ nextSection.idx ].list.splice( nextId + 1, 0, data )
                 listArray[ prevSection.idx ].list.splice( prevIdx, 1 );
             } else {
-                console.log( '3::::: article moved after another article' )
                 target.before( src );
                 const nextId = listArray[ nextSection.idx ].list.findIndex( ( e ) => e.id == target.dataset.id );
                 listArray[ nextSection.idx ].list.splice( nextId + 1, 0, data )
                 listArray[ prevSection.idx ].list.splice( prevIdx, 1 );
             }
-
         }
     }
 
     initStore( listArray )
-
-    console.log( '---------------------------' );
-    console.log( 'src: ', src );
-    console.log( 'parentSrc: ', parentSrc )
-    console.log( '---------------------------' );
-    console.log( 'target: ', target );
-    console.log( 'targetParent: ', targetParent )
-
     if ( document.querySelector( '.active' ) ) document.querySelector( '.active' ).classList.remove( 'active' )
     if ( document.querySelector( '.over' ) ) document.querySelector( '.over' ).classList.remove( 'over' )
 }
@@ -443,12 +384,8 @@ function addDnDHandlers( elem ) {
     }
 }
 
-// [ ...articles, ...sections ].forEach.call( [ ...articles, ...sections ], addDnDHandlers );
-
-
 // localStorage   #############################
 function getStoreItem( id ) {
-    // const data = listArray.find( ( item ) => item.id == id );
     const idx = listArray.findIndex( ( e ) => e.id == id );
     const data = listArray[ idx ]
 
@@ -477,20 +414,14 @@ function initStore( store ) {
     listArray = JSON.parse( localStorage.getItem( 'listArray' ) )
 }
 
-
 window.onstorage = () => {
     listArray = JSON.parse( window.localStorage.getItem( 'listArray' ) )
-    console.log( listArray );
 };
 
 // Article edit
-
 function editArticle( e ) {
-    console.log( ' editArticle ' )
-
     const sectionId = e.target.closest( '.section' ).dataset.id
     const articleId = e.target.closest( '.article' ).dataset.id
-
     const closeButton = modal.querySelector( ".close-button" );
     const toggleModal = ( e ) => {
         if ( e.target === modal || e.target === closeButton ) {
@@ -504,17 +435,11 @@ function editArticle( e ) {
 
     // content
     const section = getStoreItem( sectionId )
-    console.log( 'section: ', section.data.list )
     const idx = section.data.list.findIndex( ( e ) => e.id == articleId );
     // const article = section.data.list[ idx ]
     const article = section.data.list.find( ( ar, index ) => ar.id == articleId );
-    console.log( 'article: ', article )
-
     const title = modal.querySelector( "input[name='title']" )
     title.value = article.title ? article.title : ''
-
-    console.log( ' title.value: ', title.value )
-
 
     const subTitle = modal.querySelector( ".sub-title" )
     subTitle.innerText = section.data.title ? section.data.title : ''
@@ -539,7 +464,6 @@ function editArticle( e ) {
     } );
 
     const startEdit = () => {
-        console.log( ' === startEdit ===' )
         edit.classList.add( 'hide' )
         description.classList.add( 'focus' )
         description.disabled = false
@@ -547,14 +471,11 @@ function editArticle( e ) {
     }
 
     const stopEdit = ( e ) => {
-        // console.log( ' === stopEdit ===' )
         if ( e && e.target.classList.contains( 'save' ) ) {
-            console.log( 'save: ' )
             if ( description.value != article.description ) updateStorage( { ...article, description: description.value } )
         }
 
         if ( e && e.target.classList.contains( 'cancel' ) ) {
-            console.log( 'cancel: ', e.target )
             description.value = article.description ? article.description : ''
         }
 
@@ -587,40 +508,22 @@ function searching( bar ) {
 
     function searchFor( e ) {
         if ( e.target.value.length > 2 ) {
-            searchbarBtn.style.display = 'block'
+            searchBarBtn.style.display = 'block'
             setTimeout( newSearch( e.target.value ), 1000 );
         }
     }
 
     function newSearch( word ) {
-        console.log( 'word: ', word )
         const result = listArray.map( ( section ) => {
             return { ...section, list: section.list.filter( ( list ) => list.title.includes( word ) ) }
         } )
-
         const filtered = result.filter( article => {
             return article.list?.length;
         } );
-
         recreateDom( filtered )
-
-        // ##########################
-        //     const filtered = {
-        //         sections: [],
-        //         articles: []
-        //     }
-        //     listArray.map( ( section ) => {
-        //         const { list, ...rest } = section;
-        //         filtered.sections = [ ...new Set( [ ...filtered.sections, { list, ...rest } ] ) ];
-        //         filtered.articles.push( ...section.list.filter( article => article.title.includes( word ) ) )
-        //     } )
-        //     recreateDom( filtered )
-        // ##########################
-
     }
 
     function recreateDom( items ) {
-        // console.log( items )
         board.replaceChildren()
         for ( const item in items ) prepareSection( items[ item ] )
 
@@ -645,10 +548,8 @@ function Populate100() {
     button.classList.add( 'btn-Populate100' )
 
     button.addEventListener( 'click', async () => {
-
         const sections = board.querySelectorAll( 'section' )
         const sectionID = sections[ 0 ].dataset.id
-
 
         if ( sectionID ) {
             const data = await fetch( 'https://jsonplaceholder.typicode.com/posts' )
@@ -656,7 +557,6 @@ function Populate100() {
                 .then( ( json ) => json );
 
             data.map( post => {
-                // console.log( 'post: ', post )
                 const item = {
                     id: post.id,
                     title: post.title,
@@ -668,8 +568,6 @@ function Populate100() {
             } )
 
             function appendArticle( item ) {
-                console.log( 'item: ', item )
-
                 const article = articleEl();
                 const header = headerEl();
                 article.classList.add( 'title--article' );

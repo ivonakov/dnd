@@ -17,11 +17,13 @@
     font-weight: 600;
     margin-bottom: 0.15em;
 }
+
 .modal ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
+
 .modal ul li {
     background-color: rgb(9 30 66 / 4%);
     border-radius: 3px;
@@ -29,9 +31,11 @@
     padding: 6px 12px;
     cursor: pointer;
 }
+
 .modal ul li i {
     margin-right: 8px;
 }
+
 .modal ul li:hover {
     background-color: rgb(9 30 66 / 8%);
 }
@@ -55,6 +59,7 @@
         'footer footer';
     gap: 10px;
 }
+
 .modal-header {
     grid-area: header;
     margin: 12px 40px 8px 56px;
@@ -67,10 +72,10 @@
     left: -46px;
     font-size: 32px;
 }
+
 .modal input[type='text'],
 .modal textarea {
     color: #172b4d;
-
     width: 100%;
     outline: none;
     background: none;
@@ -86,6 +91,7 @@
     background-color: #fff;
     box-shadow: inset 0 0 0 2px #0079bf;
 }
+
 .modal-header input[type='text'] {
     padding: 0 8px 4px;
     font-size: 20px;
@@ -101,12 +107,14 @@
 .modal-textarea {
     grid-area: text;
 }
+
 .modal-textarea textarea {
     display: block;
     width: 90%;
     resize: none;
     text-align: left;
 }
+
 .modal-textarea label {
     font-size: 1.4em;
     margin: 0.5em auto;
@@ -123,24 +131,28 @@
     border: none;
     outline: none;
 }
+
 .modal-textarea button:hover {
     background-color: rgb(9 30 66 / 8%);
 }
-.modal-textarea textarea + ul {
+
+.modal-textarea textarea+ul {
     display: none;
     line-height: 1.2em;
 }
-.modal-textarea textarea + ul li {
+
+.modal-textarea textarea+ul li {
     display: inline-block;
 }
 
-.modal-textarea textarea + ul li:last-child {
+.modal-textarea textarea+ul li:last-child {
     margin-left: 1rem;
     background-color: transparent;
     font-size: 1.2em;
     font-weight: 300;
 }
-.modal-textarea textarea + ul li:last-child:hover {
+
+.modal-textarea textarea+ul li:last-child:hover {
     background-color: rgb(9 30 66 / 8%);
 }
 
@@ -149,7 +161,8 @@
     background-color: #fff;
     box-shadow: inset 0 0 0 2px #0079bf;
 }
-.modal-textarea textarea.focus + ul {
+
+.modal-textarea textarea.focus+ul {
     display: block;
 }
 
@@ -157,6 +170,7 @@
     margin-left: 10px;
     display: inline-block;
 }
+
 .modal-textarea button.edit.hide {
     display: none;
 }
@@ -168,6 +182,7 @@
 .modal-footer {
     grid-area: footer;
 }
+
 .close-button {
     position: absolute;
     right: -60px;
