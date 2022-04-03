@@ -6,14 +6,50 @@
         <title></title>
         <meta name="description" content="">
         <meta name="author" content="">
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-            crossorigin="anonymous">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="./styles.css">
     </head>
     <body>
+        <input id="searchbar" type="text" name="search" placeholder="Search
+            for... minimum symbols are 3">
+        <button
+            class='searchbarBtn' style="display:none">X</button>
+        <main class="board"> </main>
+
+        <div class="modal" style="display:none">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <i class="bi bi-credit-card-2-front"></i>
+                    <input class="title" type="text" name="title">
+                    <span class="close-button">&times;</span>
+                    <p class="sub-title">in list wdwdwd</p>
+                </div>
+
+                <div class="modal-textarea">
+                    <label for="description"><i class="bi bi-text-left"></i>
+                        Description<button class="edit">Edit</button></label>
+                    <textarea id="description" name="description"> It was a dark
+                        ....type something funny here
+                    </textarea>
+                    <ul><li class="save">Save</li><li class="cancel">X</li></ul>
+                </div>
+
+                <div class="modal-sidebar">
+                    <h2>Add to card</h2>
+                    <ul>
+                        <li><i class="bi bi-person-badge"></i> Members</li>
+                        <li><i class="bi bi-bookmarks"></i> Labels</li>
+                        <li><i class="bi bi-list-check"></i> Checklist</li>
+                        <li><i class="bi bi-calendar2-week"></i> Dates</li>
+                        <li><i class="bi bi-inboxes"></i> Attachment</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    --------------------
+                </div>
+            </div>
+        </div>
         <script src="script.js"></script>
     </body>
 </html>

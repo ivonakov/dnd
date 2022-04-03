@@ -1,0 +1,199 @@
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal h2 {
+    color: #5e6c84;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 0.15em;
+}
+.modal ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.modal ul li {
+    background-color: rgb(9 30 66 / 4%);
+    border-radius: 3px;
+    margin-top: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.modal ul li i {
+    margin-right: 8px;
+}
+.modal ul li:hover {
+    background-color: rgb(9 30 66 / 8%);
+}
+
+.modal-content {
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    min-width: 60%;
+    transform: translate(-40%, -25%);
+    background-color: #f4f5f7;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+
+    margin: auto;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-areas:
+        'header header'
+        'text sidebar'
+        'footer footer';
+    gap: 10px;
+}
+.modal-header {
+    grid-area: header;
+    margin: 12px 40px 8px 56px;
+    position: relative;
+}
+
+.modal-header i {
+    position: absolute;
+    top: -0;
+    left: -46px;
+    font-size: 32px;
+}
+.modal input[type='text'],
+.modal textarea {
+    color: #172b4d;
+
+    width: 100%;
+    outline: none;
+    background: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 3px;
+    box-shadow: none;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+    background-color: #fff;
+    box-shadow: inset 0 0 0 2px #0079bf;
+}
+.modal-header input[type='text'] {
+    padding: 0 8px 4px;
+    font-size: 20px;
+    font-weight: 600;
+    height: 32px;
+    line-height: 24px;
+}
+
+.modal-header p {
+    margin: 0 8px;
+}
+
+.modal-textarea {
+    grid-area: text;
+}
+.modal-textarea textarea {
+    display: block;
+    width: 90%;
+    resize: none;
+    text-align: left;
+}
+.modal-textarea label {
+    font-size: 1.4em;
+    margin: 0.5em auto;
+    position: relative;
+    display: block;
+}
+
+.modal-textarea button {
+    background-color: rgb(9 30 66 / 4%);
+    border-radius: 3px;
+    margin-top: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+.modal-textarea button:hover {
+    background-color: rgb(9 30 66 / 8%);
+}
+.modal-textarea textarea + ul {
+    display: none;
+    line-height: 1.2em;
+}
+.modal-textarea textarea + ul li {
+    display: inline-block;
+}
+
+.modal-textarea textarea + ul li:last-child {
+    margin-left: 1rem;
+    background-color: transparent;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+.modal-textarea textarea + ul li:last-child:hover {
+    background-color: rgb(9 30 66 / 8%);
+}
+
+.modal-textarea textarea.focus {
+    min-height: 160px;
+    background-color: #fff;
+    box-shadow: inset 0 0 0 2px #0079bf;
+}
+.modal-textarea textarea.focus + ul {
+    display: block;
+}
+
+.modal-textarea button.edit {
+    margin-left: 10px;
+    display: inline-block;
+}
+.modal-textarea button.edit.hide {
+    display: none;
+}
+
+.modal-sidebar {
+    grid-area: sidebar;
+}
+
+.modal-footer {
+    grid-area: footer;
+}
+.close-button {
+    position: absolute;
+    right: -60px;
+    top: -7px;
+    height: 32px;
+    margin: 4px;
+    overflow: hidden;
+    padding: 4px;
+    border-radius: 50%;
+    color: #42526e;
+    transition: background-color 85ms, color 85ms;
+    width: 32px;
+    z-index: 2;
+    line-height: 28px;
+    text-align: center;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: darkgray;
+}
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}

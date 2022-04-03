@@ -1,131 +1,260 @@
-body {
-    background: #0079bf;
+@import 'search.css';
+@import 'modal.css';
+
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
 }
 
+body {
+    background-color: rgb(0, 121, 191);
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue,
+        sans-serif;
+}
 .board {
     display: flex;
     flex-wrap: wrap;
-    padding: 40px;
+    /* justify-content: space-between; */
+    padding: 10px 40px;
 }
 
-.board > section {
+header,
+article,
+footer {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.board input[type='text'] {
+    outline: none;
+    background: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 3px;
+    padding: 0.25rem;
+    flex: 80% 0 0;
+}
+.board input[type='text']:hover {
+    border: 1px solid #0179bf;
+    background-color: rgb(248, 249, 250, 0.25);
+    box-shadow: 0px 0px 2px 1px rgb(203 199 199 / 50%);
+}
+.board input[type='text'] + span {
+    display: block;
+    margin-left: auto;
+    width: 15%;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+}
+.board input[type='text'] + span:hover {
+    background-color: #091e4214;
+    color: #172b4d;
+}
+.board input[type='text'] + span:after {
+    content: '...';
+    /* position: absolute; */
+    top: 40%;
+    right: 1%;
+    transform: translate(-100%, -55%);
+}
+
+article {
+    cursor: grab;
+}
+
+article span {
+    cursor: pointer;
+}
+
+section {
     display: flex;
     flex-direction: column;
-    flex: 100%;
+    height: fit-content;
     margin: 5px 5px;
     padding: 10px;
     background-color: #e3e3e3;
     border: 1px solid #dfdfdf;
     border-radius: 3px;
 }
+ 
 
-.board article {
-    margin: 0.25rem auto 0.75rem;
-    border-radius: 3px;
-    cursor: pointer;
-    box-shadow: 0px 0px 2px 1px rgba(203, 199, 199, 0.5);
+article {
+    margin: 0.5rem 0;
+    border-radius: 0.25rem;
+    /* cursor: pointer; */
+    background-color: white;
+    box-shadow: 0 1px 0 rgb(9 45 66 / 25%);
+}
+article:hover {
+    background: #f4f5f7;
+}
+article > header {
+    padding: 0.6rem 1rem;
 }
 
-.board .hint {
+/* article > header span:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 3.2rem;
+
+    width: 5px;
+    height: 5px;
+    border-left: solid 1px currentColor;
+    border-top: solid 1px currentColor;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+article > header span:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 3rem;
+    width: 5px;
+    height: 5px;
+    border-bottom: solid 1px currentColor;
+    border-right: solid 1px currentColor;
+    transform: translate(-50%, -50%) rotate(-45deg);
+} */
+.board button {
+    color: #798d99;
+    border-radius: 3px;
+    background-color: transparent;
+    border: none;
+}
+
+button.addArticle,
+button.addSection {
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+}
+button.addArticle:hover,
+button.addSection:hover {
+    color: #f8f9fa;
+    background-color: #5fa7e1;
+    box-shadow: 0px 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.board > .addSection {
+    display: flex;
+    flex: 100%;
+    margin: 5px 5px;
+    padding: 10px;
+    max-height: 40px;
+    font-size: 0.9em;
+    color: #b3d3e5;
+    border: none;
+    background-color: #006ba9;
+    transition: background-color 0.3s;
+}
+.board > .addSection:hover {
+    background-color: #005586;
+    cursor: pointer;
+}
+
+.board button.cancel {
+    cursor: pointer;
+}
+
+.board button:disabled:hover {
+    color: #acacac;
+    background: none;
+    box-shadow: none;
+}
+
+.board .over {
     border: 1px solid #adb5bd;
     background-color: #adb5bd;
 }
 .board .active {
     border: 1px solid #6c757d;
     background-color: #6c757d;
+    opacity: 0.4;
+    /* transform: rotate(-5deg); */
 }
 
-input[type='text'] {
-    outline: none;
-    background: none;
-    border-width: 1px;
-    border-style: solid;
-    border-color: transparent;
+.board footer {
+    margin: auto 0 1rem 0;
+}
+.board article + footer {
+    margin-top: 1rem;
 }
 
-.title--section {
-    margin: 0.5rem auto 1rem;
+.section > header {
+    margin-bottom: 1rem;
+    /* cursor: grab; */
 }
-.title--section:hover {
-    background-color: rgb(248, 249, 250, 0.25);
+
+.section > header > input[type='text'] {
+    font-size: 1.2em;
+    text-transform: uppercase;
 }
-.title--section:focus {
-    border-color: #f8f9fa;
+
+.section > header > input[type='text']:hover {
+}
+.section > header > input[type='text']:focus {
+    border-color: #0179bf;
     background-color: rgb(248, 249, 250, 0.5);
+    box-shadow: 0px 0px 2px 1px rgb(203 199 199 / 50%);
 }
 
-.title--article {
-    margin: 0.25rem;
+.section > header > div {
+    /* flex: 1; */
 }
 
-button {
-    border-radius: 3px;
-    background-color: transparent;
-    border: none;
-}
-
-.btn-AddList {
-    flex: 100%;
-    margin: 5px;
-    padding: 1.2rem 0.75rem;
-    max-height: 5rem;
-    align-self: flex-start;
-    text-align: left;
-    color: #edeff1;
-}
-.btn-AddList:hover {
-    color: #fff;
-    background-color: #5fa7e1;
-    -webkit-box-shadow: 0px 1px 3px 0 rgb(0 0 0 / 20%);
-    box-shadow: 0px 1px 3px 0 rgb(0 0 0 / 20%);
-}
-.btn-AddList:disabled:hover {
-    color: rgba(248, 249, 250, 0.5);
-    background: none;
-    box-shadow: none;
-}
-
-.btn-AddCard {
+.section > footer > .addArticle {
     align-self: flex-start;
 }
 
-.btn-AddCard:hover {
-    color: #f8f9fa;
-    background-color: #5fa7e1;
-    -webkit-box-shadow: 0px 1px 3px 0 rgb(0 0 0 / 20%);
-    box-shadow: 0px 1px 3px 0 rgb(0 0 0 / 20%);
-}
-
-.btn-AddCard:disabled:hover {
-    color: #a6a3a3;
-    background: none;
-    box-shadow: none;
-}
-.btn-emptyStorage {
-    position: absolute;
-    right: 2rem;
-    bottom: 2rem;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+.section > footer > .addArticle:hover {
 }
 
 @media (min-width: 768px) {
     .board > section,
-    .btn-AddList {
+    .board > .addSection {
         flex: 0 0 45%;
     }
 }
 
 @media (min-width: 992px) {
     .board > section,
-    .btn-AddList {
+    .board > .addSection {
         flex: 0 0 30%;
     }
 }
 
 @media (min-width: 1200px) {
     .board > section,
-    .btn-AddList {
-        flex: 0 0 24%;
+    .board > .addSection {
+        flex: 0 0 22%;
     }
+}
+
+.btn-emptyStorage,
+.btn-Populate100 {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    color: #fff;
+    text-shadow: 1px 1px 0px rgb(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+.btn-emptyStorage:hover,
+.btn-Populate100:hover {
+    color: #fff;
+}
+
+.btn-emptyStorage {
+    right: 2rem;
+}
+.btn-Populate100 {
+    right: 200px;
 }
